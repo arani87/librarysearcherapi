@@ -31,16 +31,17 @@ public class SearchDataProcessor {
      *
      * @param searchString the search query to look up on
      * @return LibraryModel the resource model of the service API
-     * @throws IOException in case of jackson de-serialization issue
-     */
-    public LibraryModel getSearchResults(String searchString) throws IOException {
-        Movies movies = apiInvokerService.searchMovieLibrary(searchString);
-        Books books = apiInvokerService.searchBooksLibrary(searchString);
+                * @throws IOException in case of jackson de-serialization issue
+                */
+        public LibraryModel getSearchResults(String searchString) throws IOException {
+            Movies movies = apiInvokerService.searchMovieLibrary(searchString);
+            Books books = apiInvokerService.searchBooksLibrary(searchString);
 
         return mapSearchResultsToDataModel(movies, books);
-    }
+}
 
-    private LibraryModel mapSearchResultsToDataModel(Movies movies, Books books) {
+
+    LibraryModel mapSearchResultsToDataModel(Movies movies, Books books) {
         LibraryModel libraryModel = new LibraryModel();
         mapMovies(movies, libraryModel);
         mapBooks(books, libraryModel);
@@ -51,7 +52,7 @@ public class SearchDataProcessor {
         return libraryModel;
     }
 
-    private void mapBooks(Books books, LibraryModel libraryModel) {
+    void mapBooks(Books books, LibraryModel libraryModel) {
         if (null != books && !books.isSearchDown()) {
             if (books.getTotalItems() > 0) {
                 books.getItems().forEach(result -> {
@@ -69,7 +70,7 @@ public class SearchDataProcessor {
         }
     }
 
-    private void mapMovies(Movies movies, LibraryModel libraryModel) {
+    void mapMovies(Movies movies, LibraryModel libraryModel) {
         if (null != movies && !movies.isSearchDown()) {
             movies.getResults().forEach(result -> {
                 Item item = new Item();
