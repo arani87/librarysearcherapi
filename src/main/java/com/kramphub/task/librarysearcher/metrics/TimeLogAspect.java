@@ -37,9 +37,9 @@ public class TimeLogAspect {
                     proceedingJoinPoint.getSignature().getName(),
                     duration);
             if ("searchMovieLibrary".equalsIgnoreCase(proceedingJoinPoint.getSignature().getName())) {
-                infoMetrics.setAverageResponseTimeMovie(((infoMetrics.getAverageResponseTimeMovie() * (infoMetrics.getMoviesApiHitCounter() - 1) + duration)) / infoMetrics.getMoviesApiHitCounter());
+                infoMetrics.setAverageResponseTimeMovie(((infoMetrics.getAverageResponseTimeMovie() * (infoMetrics.getMoviesApiHitCounter() - 1) + duration)) / infoMetrics.getMoviesApiHitCounter() == 0 ? 1 : infoMetrics.getMoviesApiHitCounter());
             } else if ("searchBooksLibrary".equalsIgnoreCase(proceedingJoinPoint.getSignature().getName())) {
-                infoMetrics.setAverageResponseTimeBook(((infoMetrics.getAverageResponseTimeBook() * (infoMetrics.getBooksApiHitCounter() - 1) + duration)) / infoMetrics.getBooksApiHitCounter());
+                infoMetrics.setAverageResponseTimeBook(((infoMetrics.getAverageResponseTimeBook() * (infoMetrics.getBooksApiHitCounter() - 1) + duration)) / infoMetrics.getBooksApiHitCounter() == 0 ? 1 : infoMetrics.getBooksApiHitCounter());
             }
         }
 
